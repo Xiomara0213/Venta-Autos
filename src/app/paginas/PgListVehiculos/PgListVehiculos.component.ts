@@ -9,7 +9,7 @@ import { VehiculoService } from '../../servicios/Vehiculo.service';
 export class PgListVehiculosComponent implements OnInit {
 
   mostrarImagen = true;
-  //filtro:string = "";
+
   private _filtro: string = "";
 
   get filtro(){
