@@ -1,0 +1,73 @@
+<div class="card">
+  <div class="card-header">
+    LISTA DE VEHÍCULOS {{valor}}
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Filtro</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Marca"
+        [(ngModel)]="filtro">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        FILTRADO POR {{filtro}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <a [routerLink]="['/vehiculo']" class="btn btn-info">NUEVO</a>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th>
+                <button 
+                  type="button" 
+                  class="btn btn-xs"
+                  [ngClass]="{'btn-success':mostrarImagen,'btn-warning':!mostrarImagen}"
+                  (click)="mostrar()">
+                  {{mostrarImagen ? 'Ocultar':'Mostrar'}} Imagen
+                </button>
+              </th>
+              <th>CODIGO</th>
+              <th>MARCA</th>
+              <th>MODELO</th>
+              <th>AÑO</th>
+              <th>COLOR</th>
+              <th>KILOMETRAJE</th>
+              <th>PRECIO</th>
+              <th>CALIFICACIÓN</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of listaVehiculos">
+              <td>
+                <img [src]="item.foto" style="width: 80px;" *ngIf="mostrarImagen" >
+              </td>
+              <td>
+                <a [routerLink]="['/vehiculo/'+item.codigo]">{{ item.codigo }}</a>
+              </td>
+              <td>{{ item.marca }}</td>
+              <td>{{ item.modelo | AEspacio:'-' | lowercase }}</td>
+              <td [innerText]="item.anio"></td>
+              <td>{{ item.color }}</td>
+              <td>{{ item.kilometraje }}</td>
+              <td>{{ item.precio | currency }}</td>
+              <td>
+                <app-calificacion [calificacion]="item.calificacion" (accionClick)="recepcion($event)" ></app-calificacion>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>

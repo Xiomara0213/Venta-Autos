@@ -1,0 +1,58 @@
+<div class="card">
+  <div class="card-header">
+    <h2>{{tituloPagina}}</h2>
+  </div>
+  <div class="card-body"> 
+    <div class="row">
+      <form [formGroup]="clienteForm">
+
+        <div class="mb-3 row">
+          <label for="nombre" class="col-sm-2 col-form-label">NOMBRE</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control"id="nombre" formControlName="nombre">           
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label for="password" class="col-sm-2 col-form-label">PASSWORD</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="password" formControlName="password">
+          </div>
+        </div>
+
+        <div class="mb-3 form-check">
+          <div class="mb-3">
+            <input type="checkbox" formControlName="quiereContacto" (change)="toggleContacto()">¿Quieres ser contactado?
+          </div>
+        </div>
+
+        <div class="mb-3 row" *ngIf="quiereContacto">
+          <label for="correo" class="col-sm-2 col-form-label">E-MAIL</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control" id="correo" formControlName="correo" aria-describedby="correoHelp">
+            <div id="correoHelp" class="form-text">No compartiremos tu correo con nadie</div>
+          </div>
+        </div>
+        
+        <div class="mb-3 row" *ngIf="quiereContacto">
+          <label for="telefono" class="col-sm-2 col-form-label">TELEFONO</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control" id="telefono" formControlName="telefono" aria-describedby="telefonoHelp">
+            <div id="telefonoHelp" class="form-text">No compartiremos tu número con nadie</div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="d-md-block">
+      <button class="btn btn-primary" type="button" (click)="guardar()">REGISTRAR</button>
+    </div>
+
+  </div>
+  <div class="card-footer text-center">
+    <button class="btn btn-outline-secondary" style="width: 100px" (click)="goInicio()">HOME</button>
+  </div>
+</div>
+
+

@@ -1,0 +1,96 @@
+<div class="card">
+  <div class="card-header">
+    CREACION DE VEHICULO
+  </div>
+  <div class="card-body"> 
+    <div class="row">
+      <div class="col-12">
+        <form [formGroup]="Formulario">
+
+          <div class="mb-3 row">
+            <label for="staticCodigo" class="col-sm-2 col-form-label">Codigo</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="staticCodigo" name="codigo" formControlName="codigo">
+              <span class="text-danger" *ngIf="Formulario.controls['codigo'].errors?.['required']">Valor Requerido</span>
+              <span class="text-danger" *ngIf="codigoControl && codigoControl.errors?.['pattern']">El código debe comenzar con una letra y estar seguido de tres dígitos</span>              
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="staticCodigo" class="col-sm-2 col-form-label">Marca</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="staticCodigo" name="marca" formControlName="marca">
+              <span class="text-danger" *ngIf="Formulario.controls['marca'].errors?.['required']">Valor Requerido</span>
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="staticCodigo" class="col-sm-2 col-form-label">Modelo</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="staticCodigo" name="modelo" formControlName="modelo">
+              <span class="text-danger" *ngIf="Formulario.controls['modelo'].errors?.['required']">Valor Requerido</span>
+            </div>
+          </div>
+          
+          <div class="mb-3 row">
+            <label for="staticCodigo" class="col-sm-2 col-form-label">Color</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="staticCodigo" name="color" formControlName="color">
+              <span class="text-danger" *ngIf="Formulario.controls['color'].errors?.['required']">Valor Requerido</span>
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="staticCodigo" class="col-sm-2 col-form-label">Kilometraje</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="staticCodigo" name="kilometraje" formControlName="kilometraje">
+              <span class="text-danger" *ngIf="Formulario.controls['kilometraje'].errors?.['required']">Valor Requerido</span>
+              <span class="text-danger" *ngIf="kilometrajeControl && kilometrajeControl.errors?.['pattern']">Este campo solo acepta números</span>
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="staticCodigo" class="col-sm-2 col-form-label">Precio</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="staticCodigo" name="precio" formControlName="precio">
+              <span class="text-danger" *ngIf="Formulario.controls['precio'].errors?.['required']">Valor Requerido</span>
+              <span class="text-danger" *ngIf="precioControl && precioControl.errors?.['pattern']">Este campo solo acepta números</span>
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="staticCodigo" class="col-sm-2 col-form-label">Foto</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="staticCodigo" name="foto" formControlName="foto">
+              <span class="text-danger" *ngIf="Formulario.controls['foto'].errors?.['required']">Valor Requerido</span>
+            </div>
+          </div>
+
+          
+
+          <div class="mb-3 row">
+            <label for="staticCodigo" class="col-sm-2 col-form-label">Anio</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="staticCodigo" name="anio" formControlName="anio">
+              <span class="text-danger" *ngIf="Formulario.controls['anio'].errors?.['required']">Valor Requerido</span>
+              <span class="text-danger" *ngIf="anioControl && anioControl.errors?.['pattern']">Este campo solo acepta 4 digitos</span>
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="staticCodigo" class="col-sm-2 col-form-label">Calificacion</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="staticCodigo" name="calificacion" formControlName="calificacion">
+              <span class="text-danger" *ngIf="Formulario.controls['calificacion'].errors?.['required']">Valor Requerido</span>
+              <span class="text-danger" *ngIf="calificacionControl && calificacionControl.errors?.['pattern']">Este campo solo acepta 1 dígito</span>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <button class="btn btn-info" (click)="guardar()">GUARDAR</button>
+    </div>
+  </div>
+</div>
