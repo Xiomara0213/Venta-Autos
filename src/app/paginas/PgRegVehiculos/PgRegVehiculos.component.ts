@@ -62,6 +62,9 @@ export class PgRegVehiculosComponent implements OnInit {
     return this.Formulario.get('calificacion');
   }
 
+  goBack(): void{
+    window.history.back();
+  }
 }
 
 
