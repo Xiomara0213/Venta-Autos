@@ -11,7 +11,7 @@ export class PgClientesRegComponent implements OnInit {
 
   clienteForm: FormGroup;
   quiereContacto = false;
-  tituloPagina = "Registro del Cliente";
+  tituloPagina = "REGISTRO DEL CLIENTE";
 
   constructor(
     private fb: FormBuilder,

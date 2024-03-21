@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    LISTA DE VEHÍCULOS {{valor}}
+    <h4>LISTA DE VEHÍCULOS {{valor}}</h4>
   </div>
 
   <div class="card-body">
@@ -44,6 +44,7 @@
               <th>KILOMETRAJE</th>
               <th>PRECIO</th>
               <th>CALIFICACIÓN</th>
+              <th>ACCION</th>
             </tr>
           </thead>
           <tbody>
@@ -51,9 +52,7 @@
               <td>
                 <img [src]="item.foto" style="width: 80px;" *ngIf="mostrarImagenes" >
               </td>
-              <td>
-                <a [routerLink]="['/vehiculo/'+item.codigo]">{{ item.codigo }}</a>
-              </td>
+              <td>{{ item.codigo }}</td>
               <td>{{ item.marca }}</td>
               <td>{{ item.modelo | AEspacio:'-' | lowercase }}</td>
               <td [innerText]="item.anio"></td>
@@ -62,6 +61,10 @@
               <td>{{ item.precio | currency }}</td>
               <td>
                 <app-calificacion [calificacion]="item.calificacion" (accionClick)="recepcion($event)" ></app-calificacion>
+              </td>
+              <td>
+                <button class="btn btn-danger" [routerLink]="['/vehiculo/'+item.codigo]">VER</button>
+                
               </td>
             </tr>
           </tbody>

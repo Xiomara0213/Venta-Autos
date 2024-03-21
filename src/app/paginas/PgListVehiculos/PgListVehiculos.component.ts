@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { VehiculoService } from '../../servicios/Vehiculo.service';
+import { Vehiculo } from '../../utilitarios/modelos/Vehiculo';
 
 @Component({
   selector: 'app-PgListVehiculos',
@@ -8,43 +9,46 @@ import { VehiculoService } from '../../servicios/Vehiculo.service';
 })
 export class PgListVehiculosComponent implements OnInit {
 
-  mostrarImagenes = true;
-
+  public mostrarImagenes = false;
+  public listaVehiculos:Array<Vehiculo> = [];
+  
   private _filtro: string = "";
 
   get filtro(){
     return this._filtro
   }
-
-  set filtro(data:string){
-    this._filtro = data;
-    this.consultaVehiculos();
+  set filtro(filtro:string){
+    this._filtro = filtro;
+    //this.consultaVehiculos();
   }
 
   @Input() valor:string = '';
-  listaVehiculos:Array<any> = [];
+  
   
   constructor(
     private vehiculoService: VehiculoService
-  ) {
-  
-  }
+  ) {}
 
   ngOnInit() {
-    this.consultaVehiculos();
+    /*this.consultaVehiculos();*/
+    console.log('Ingreso a ejercitarse');
+    this.vehiculoService.getVehiculos().subscribe( respuesta => {
+      console.log(respuesta);
+      this.listaVehiculos = respuesta;
+    })
   }
 
-  mostrar(){
+  /*mostrar(){
     this.mostrarImagenes = !this.mostrarImagenes;
   }
-  consultaVehiculos(){
+  /*consultaVehiculos(){
     this.vehiculoService.getVehiculos(this.filtro).subscribe(data =>{
       this.listaVehiculos = data;
     });
-  }
+  }*/
 
-  recepcion(dato:number){
+  /*recepcion(dato:number){
     console.log('Dato:',dato);
-  }
+  }*/
 
 }

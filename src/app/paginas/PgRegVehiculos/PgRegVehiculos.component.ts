@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Vehiculo } from '../../utilitarios/modelos/Vehiculo';
 import { VehiculoService } from '../../servicios/Vehiculo.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-PgRegVehiculos',
@@ -11,8 +13,10 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 export class PgRegVehiculosComponent implements OnInit {
 
   Formulario: FormGroup;
+  vehiculo?: Vehiculo
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private vehiculoServicio: VehiculoService,
     private formBuilder: FormBuilder
   ) {
@@ -27,10 +31,20 @@ export class PgRegVehiculosComponent implements OnInit {
       "anio": ['', [Validators.required, Validators.pattern(/^\d{4}$/)]],
       "calificacion": ['', [Validators.required, Validators.pattern(/^\d{1}$/)]],
     });
-
   }
   
   ngOnInit() {
+    this.activatedRoute.params.subscribe( params =>{
+      this.vehiculoServicio.getVehiculo(params['codigo']).subscribe( data => {
+        this.vehiculo = data;
+        this.Formulario.controls['codigo'].setValue(this.vehiculo?.codigo);
+        this.Formulario.controls['marca'].setValue(this.vehiculo?.marca);
+        this.Formulario.controls['modelo'].setValue(this.vehiculo?.modelo);
+      })
+    })
+
+
+
   }
 
   guardar(){

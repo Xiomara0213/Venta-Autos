@@ -4,6 +4,7 @@
   </div>
   <div class="card-body">
     <div class="row">
+
       <div class="col-6">
         <div class="col-18">
           <img src="{{vehiculo?.foto}}" class="img-thumbnail img-fluid" width="600px">
@@ -13,51 +14,53 @@
           <button class="btn btn-primary" (click)="goBack()">REGRESAR</button>
         </div>
       </div>
+      
       <div class="col-6">
+
         <div class="mb-3 row">
-          <label for="staticCodigo" class="col-sm-3 col-form-label">CODIGO</label>
+          <label for="staticCodigo" class="col-sm-3 col-form-label fw-bold">CODIGO</label>
           <div class="col-sm-8">
             {{vehiculo?.codigo}}
           </div>
         </div>
 
         <div class="mb-3 row">
-          <label for="staticCodigo" class="col-sm-3 col-form-label">MARCA</label>
+          <label for="staticCodigo" class="col-sm-3 col-form-label fw-bold">MARCA</label>
           <div class="col-sm-8">
             {{vehiculo?.marca}}
           </div>
         </div>
 
         <div class="mb-3 row">
-          <label for="staticCodigo" class="col-sm-3 col-form-label">MODELO</label>
+          <label for="staticCodigo" class="col-sm-3 col-form-label fw-bold">MODELO</label>
           <div class="col-sm-8">
             {{vehiculo?.modelo}}
           </div>
         </div>
 
         <div class="mb-3 row">
-          <label for="staticCodigo" class="col-sm-3 col-form-label">COLOR</label>
+          <label for="staticCodigo" class="col-sm-3 col-form-label fw-bold">COLOR</label>
           <div class="col-sm-8">
             {{vehiculo?.color}}
           </div>
         </div>
 
         <div class="mb-3 row">
-          <label for="staticCodigo" class="col-sm-3 col-form-label">AÑO</label>
+          <label for="staticCodigo" class="col-sm-3 col-form-label fw-bold">AÑO</label>
           <div class="col-sm-8">
             {{vehiculo?.anio}}
           </div>
         </div>
 
         <div class="mb-3 row">
-          <label for="staticCodigo" class="col-sm-3 col-form-label">KILOMETRAJE</label>
+          <label for="staticCodigo" class="col-sm-3 col-form-label fw-bold">KILOMETRAJE</label>
           <div class="col-sm-8">
             {{vehiculo?.kilometraje}}
           </div>
         </div>
 
         <div class="mb-3 row">
-          <label for="staticCodigo" class="col-sm-3 col-form-label">CALIFICACION</label>
+          <label for="staticCodigo" class="col-sm-3 col-form-label fw-bold">CALIFICACION</label>
           <div class="col-sm-8">
             <app-calificacion [calificacion]="vehiculo?.calificacion"></app-calificacion>
           </div>

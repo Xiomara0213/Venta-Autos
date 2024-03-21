@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse,HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Vehiculo } from '../utilitarios/modelos/Vehiculo';
 import { map, Observable } from 'rxjs';
@@ -10,9 +10,22 @@ import { map, Observable } from 'rxjs';
 export class VehiculoService {
 
   constructor(
-    //private http: HttpClient
+    private http: HttpClient
   ) { }
-  //baseUrl = "http://www.epico.gob.ec/vehiculo/public/api/";
+  baseUrl = "http://www.epico.gob.ec/vehiculo/public/api/";
+
+  /*getVehiculos(): Vehiculo[]{
+    return this.listaVehiculos;
+  }*/
+
+  getVehiculos(): Observable<Vehiculo[]>{
+    return this.http.get<Respuesta>(this.baseUrl+"vehiculos/").pipe(
+      map(respuesta => {
+        return respuesta.data;
+      })
+    );
+  }
+ 
 
   /*getVehiculos(filtro?:string, rows?:number, page?:number):Observable<Vehiculo[]>{
     let body = new HttpParams();
@@ -25,24 +38,24 @@ export class VehiculoService {
     );
   }*/
   
-  getVehiculos(filtro: any):Observable<Array<Vehiculo>>{
+  /*getVehiculos(filtro: any):Observable<Array<Vehiculo>>{
     const escucha: Observable<Array<Vehiculo>> = new Observable(escuchando => {
       let lista = this.listaVehiculos.filter( elem => elem.marca.toLocaleLowerCase().includes(filtro.toLowerCase()))
       escuchando.next(lista);
     });
     return escucha;
-  }
+  }*/
 
-  getVehiculo(codigo:string): Observable<Vehiculo | undefined>{
-    const escucha: Observable<Vehiculo | undefined> = new Observable(escuchando => {
+  getVehiculo(codigo:string): Observable<Vehiculo>{
+    const escucha: Observable<Vehiculo> = new Observable(escuchando => {
       setTimeout(()=>{
         let vehiculo = this.listaVehiculos.find(ele => ele.codigo === codigo);
         escuchando.next(vehiculo); //next; error; complete
-      }, 1000);
+      }, 400);
     });
     return escucha;
   }
-
+  
   addVehiculo(vehiculo: Vehiculo){
     this.listaVehiculos.push(vehiculo);
   }
@@ -54,5 +67,11 @@ export class VehiculoService {
     {"codigo":"A004", "marca":"TOYOTA", "modelo":"AGYA", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.toyota.com.ec//admin/sites/default/files/2023-08/toyota-agya-color-rojo.png","anio":2024,"calificacion":5},
     {"codigo":"A005", "marca":"HYUNDAI", "modelo":"ACCENT", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.hyundai.com.ec/static/media/rendimiento3.65a2ca8575719cfabb7c.webp","anio":2024,"calificacion":5},
   ];
-  
+
+}
+
+export interface Respuesta {
+  codigo: string;
+  mensaje: string;
+  data: any;
 }

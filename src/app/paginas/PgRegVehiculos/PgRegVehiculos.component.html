@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    CREACION DE VEHICULO
+    <h4>CREACIÓN DE VEHICULO</h4>
   </div>
   <div class="card-body"> 
     <div class="row">
@@ -8,7 +8,7 @@
         <form [formGroup]="Formulario">
 
           <div class="mb-3 row">
-            <label for="staticCodigo" class="col-sm-2 col-form-label">CODIGO</label>
+            <label for="staticCodigo" class="col-sm-2 col-form-label fw-bold">CODIGO</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="staticCodigo" name="codigo" formControlName="codigo">
               <span class="text-danger" *ngIf="Formulario.controls['codigo'].errors?.['required']">Valor Requerido</span>
@@ -17,7 +17,7 @@
           </div>
 
           <div class="mb-3 row">
-            <label for="staticCodigo" class="col-sm-2 col-form-label">MARCA</label>
+            <label for="staticCodigo" class="col-sm-2 col-form-label fw-bold">MARCA</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="staticCodigo" name="marca" formControlName="marca">
               <span class="text-danger" *ngIf="Formulario.controls['marca'].errors?.['required']">Valor Requerido</span>
@@ -25,7 +25,7 @@
           </div>
 
           <div class="mb-3 row">
-            <label for="staticCodigo" class="col-sm-2 col-form-label">MODELO</label>
+            <label for="staticCodigo" class="col-sm-2 col-form-label fw-bold">MODELO</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="staticCodigo" name="modelo" formControlName="modelo">
               <span class="text-danger" *ngIf="Formulario.controls['modelo'].errors?.['required']">Valor Requerido</span>
@@ -33,7 +33,7 @@
           </div>
           
           <div class="mb-3 row">
-            <label for="staticCodigo" class="col-sm-2 col-form-label">COLOR</label>
+            <label for="staticCodigo" class="col-sm-2 col-form-label fw-bold">COLOR</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="staticCodigo" name="color" formControlName="color">
               <span class="text-danger" *ngIf="Formulario.controls['color'].errors?.['required']">Valor Requerido</span>
@@ -41,7 +41,7 @@
           </div>
 
           <div class="mb-3 row">
-            <label for="staticCodigo" class="col-sm-2 col-form-label">KILOMETRAJE</label>
+            <label for="staticCodigo" class="col-sm-2 col-form-label fw-bold">KILOMETRAJE</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="staticCodigo" name="kilometraje" formControlName="kilometraje">
               <span class="text-danger" *ngIf="Formulario.controls['kilometraje'].errors?.['required']">Valor Requerido</span>
@@ -50,7 +50,7 @@
           </div>
 
           <div class="mb-3 row">
-            <label for="staticCodigo" class="col-sm-2 col-form-label">PRECIO</label>
+            <label for="staticCodigo" class="col-sm-2 col-form-label fw-bold">PRECIO</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="staticCodigo" name="precio" formControlName="precio">
               <span class="text-danger" *ngIf="Formulario.controls['precio'].errors?.['required']">Valor Requerido</span>
@@ -59,17 +59,15 @@
           </div>
 
           <div class="mb-3 row">
-            <label for="staticCodigo" class="col-sm-2 col-form-label">FOTO</label>
+            <label for="staticCodigo" class="col-sm-2 col-form-label fw-bold">FOTO</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="staticCodigo" name="foto" formControlName="foto">
               <span class="text-danger" *ngIf="Formulario.controls['foto'].errors?.['required']">Valor Requerido</span>
             </div>
           </div>
 
-          
-
           <div class="mb-3 row">
-            <label for="staticCodigo" class="col-sm-2 col-form-label">AÑO</label>
+            <label for="staticCodigo" class="col-sm-2 col-form-label fw-bold">AÑO</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="staticCodigo" name="anio" formControlName="anio">
               <span class="text-danger" *ngIf="Formulario.controls['anio'].errors?.['required']">Valor Requerido</span>
@@ -78,7 +76,7 @@
           </div>
 
           <div class="mb-3 row">
-            <label for="staticCodigo" class="col-sm-2 col-form-label">CALIFICACION</label>
+            <label for="staticCodigo" class="col-sm-2 col-form-label fw-bold">CALIFICACION</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" id="staticCodigo" name="calificacion" formControlName="calificacion">
               <span class="text-danger" *ngIf="Formulario.controls['calificacion'].errors?.['required']">Valor Requerido</span>
@@ -89,12 +87,11 @@
         </form>
       </div>
     </div>
-    <div class="col-sm-10 text-center">
+    <div class="col-md-12 text-center">
       <button class="btn btn-primary" (click)="guardar()">GUARDAR</button>
     </div>
   </div>
-    <div class="card-footer col-sm-12 text-end">
-      <button class="btn btn-primary" style="width: 120px" (click)="goBack()">REGRESAR</button>
-    </div>
-  
+  <div class="card-footer col-sm-12 text-end">
+    <button class="btn btn-primary" style="width: 120px" (click)="goBack()">REGRESAR</button>
+  </div>
 </div>
