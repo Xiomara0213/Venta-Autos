@@ -8,7 +8,7 @@ import { VehiculoService } from '../../servicios/Vehiculo.service';
 })
 export class PgListVehiculosComponent implements OnInit {
 
-  mostrarImagen = true;
+  mostrarImagenes = true;
 
   private _filtro: string = "";
 
@@ -35,7 +35,7 @@ export class PgListVehiculosComponent implements OnInit {
   }
 
   mostrar(){
-    this.mostrarImagen = !this.mostrarImagen;
+    this.mostrarImagenes = !this.mostrarImagenes;
   }
   consultaVehiculos(){
     this.vehiculoService.getVehiculos(this.filtro).subscribe(data =>{

@@ -31,9 +31,9 @@
                 <button 
                   type="button" 
                   class="btn btn-xs"
-                  [ngClass]="{'btn-success':mostrarImagen,'btn-warning':!mostrarImagen}"
+                  [ngClass]="{'btn-success':mostrarImagenes,'btn-warning':!mostrarImagenes}"
                   (click)="mostrar()">
-                  {{mostrarImagen ? 'Ocultar':'Mostrar'}} Imagen
+                  {{mostrarImagenes ? 'Ocultar':'Mostrar'}} Imagenes
                 </button>
               </th>
               <th>CODIGO</th>
@@ -49,7 +49,7 @@
           <tbody>
             <tr *ngFor="let item of listaVehiculos">
               <td>
-                <img [src]="item.foto" style="width: 80px;" *ngIf="mostrarImagen" >
+                <img [src]="item.foto" style="width: 80px;" *ngIf="mostrarImagenes" >
               </td>
               <td>
                 <a [routerLink]="['/vehiculo/'+item.codigo]">{{ item.codigo }}</a>
