@@ -30,7 +30,7 @@
               <th scope="col">
                 <button 
                   class="btn btn-sm"
-                  [ngClass]="{'btn-warnig':this.mostrarImagenes,'btn-info':!this.mostrarImagenes}"
+                  [ngClass]="{'btn-warning':!this.mostrarImagenes, 'btn-info':this.mostrarImagenes}"
                   (click)="this.mostrarImagenes = !this.mostrarImagenes"
                   [innerText]="mostrarImagenes ? 'OCULTAR IMAGENES' : 'MOSTRAR IMAGENES'">
                 </button>

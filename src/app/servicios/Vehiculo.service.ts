@@ -17,16 +17,18 @@ export class VehiculoService {
   constructor(
     private http: HttpClient
   ) { }
-  baseUrl = "http://www.epico.gob.ec/vehiculo/public/api/";
+  baseUrl = "http://www.epico.gob.ec/vehiculo/public/api/vehiculo/";
 
-  /*
-  Todos vehiculos => GET vehiculos/
-  Insert => POST vehiculo/
-  Update => PUT vehiculo/
-  Delete => DELETE vehiculo/:codigo
-  Consulta => GET vehiculo/:codigo
-  Consulta => OPTION
-  */
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type' : 'application/json' })
+  };
+        /*
+        Todos vehiculos => GET vehiculos/
+        Insert => POST vehiculo/
+        Update => PUT vehiculo/:codigo
+        Delete => DELETE vehiculo/:codigo
+        Consulta => GET vehiculo/:codigo
+        */
 
     getVehiculos(): Observable<Vehiculo[]>{
     return this.http.get<Respuesta>(this.baseUrl+"vehiculos/").pipe(
@@ -35,23 +37,26 @@ export class VehiculoService {
   }
 
   insertVehiculo(vehiculo: Vehiculo){
-    let httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type' : 'application/json' })
-    };
-      /*let body = new HttpParams();
-      body = vehiculo.codigo ? body.set('codigo', vehiculo.codigo) : body;
-      body = vehiculo.marca ? body.set('marca', vehiculo.marca) : body;
-      body = vehiculo.modelo ? body.set('modelo', vehiculo.modelo) : body;
-      body = vehiculo.anio ? body.set('anio', vehiculo.anio) : body;
-      body = vehiculo.color ? body.set('color', vehiculo.color) : body;
-      body = vehiculo.kilometraje ? body.set('kilometraje', vehiculo.kilometraje) : body;
-      body = vehiculo.precio ? body.set('precio', vehiculo.precio) : body;
-      body = vehiculo.calificacion ? body.set('calificacion', vehiculo.calificacion) : body;*/
-
-    return this.http.post<Respuesta>(this.baseUrl+"vehiculo/", vehiculo, httpOptions);
+            /*let body = new HttpParams();
+            body = vehiculo.codigo ? body.set('codigo', vehiculo.codigo) : body;
+            body = vehiculo.marca ? body.set('marca', vehiculo.marca) : body;
+            body = vehiculo.modelo ? body.set('modelo', vehiculo.modelo) : body;
+            body = vehiculo.anio ? body.set('anio', vehiculo.anio) : body;
+            body = vehiculo.color ? body.set('color', vehiculo.color) : body;
+            body = vehiculo.kilometraje ? body.set('kilometraje', vehiculo.kilometraje) : body;
+            body = vehiculo.precio ? body.set('precio', vehiculo.precio) : body;
+            body = vehiculo.calificacion ? body.set('calificacion', vehiculo.calificacion) : body;*/
+    return this.http.post<Respuesta>(this.baseUrl+"vehiculo/", vehiculo, this.httpOptions);
   }
  
-  getVehiculo(codigo:string): Observable<Vehiculo>{
+  getVehiculo(codigo:string){
+    return this.http.get<Respuesta>(this.baseUrl+"vehiculo/"+codigo);
+  }
+
+  actualizarVehiculo(vehiculo: Vehiculo, codigo:string){
+    return this.http.put<Respuesta>(this.baseUrl+"vehiculo/"+codigo, vehiculo, this.httpOptions)
+  }
+  /*getVehiculo(codigo:string): Observable<Vehiculo>{
     const escucha: Observable<Vehiculo> = new Observable(escuchando => {
       setTimeout(()=>{
         let vehiculo = this.listaVehiculos.find(ele => ele.codigo === codigo);
@@ -59,7 +64,7 @@ export class VehiculoService {
       }, 400);
     });
     return escucha;
-  }
+  }*/
   
   addVehiculo(vehiculo: Vehiculo){
     this.listaVehiculos.push(vehiculo);

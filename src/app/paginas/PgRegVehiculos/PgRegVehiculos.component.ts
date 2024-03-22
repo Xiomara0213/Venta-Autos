@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { __param } from 'tslib';
 
 @Component({
   selector: 'app-PgRegVehiculos',
@@ -14,7 +15,7 @@ import Swal from 'sweetalert2';
 export class PgRegVehiculosComponent implements OnInit {
 
   Formulario: FormGroup;
-  vehiculo?: Vehiculo;
+  vehiculo: Vehiculo|any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -28,14 +29,16 @@ export class PgRegVehiculosComponent implements OnInit {
       "color": ['', [Validators.required]],
       "kilometraje": ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       "precio": ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      "foto": ['', Validators.required],
       "anio": ['', [Validators.required, Validators.pattern(/^\d{4}$/)]],
       "calificacion": ['', [Validators.required, Validators.pattern(/^\d{1}$/)]],
     });
   }
   
   ngOnInit() {
-
+    /*this.activatedRoute.params.subscribe( param =>{
+      let codigo = param['codigo'];
+      this.vehiculoServicio.getVehiculo(codigo)
+    })*/
   }
 
   guardar(){
@@ -51,6 +54,8 @@ export class PgRegVehiculosComponent implements OnInit {
               title: "Mensaje",
               text: "Vehiculo Registrado con éxito",
               icon: "success"
+            }).then( res =>{
+              this.Formulario.reset();
             });
           }else{
             Swal.fire({
@@ -89,6 +94,7 @@ export class PgRegVehiculosComponent implements OnInit {
   goBack(): void{
     window.history.back();
   }
+
 }
 
 

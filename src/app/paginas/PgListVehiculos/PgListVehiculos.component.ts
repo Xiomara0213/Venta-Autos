@@ -29,7 +29,7 @@ export class PgListVehiculosComponent implements OnInit {
   
   
   constructor(
-    private vehiculoService: VehiculoService
+    private vehiculoServicio: VehiculoService
   ) {}
   
     
@@ -37,7 +37,7 @@ export class PgListVehiculosComponent implements OnInit {
   ngOnInit():void {
     /*this.consultaVehiculos();*/
     console.log('Ingreso a ejercitarse');
-    this.vehiculoService.getVehiculos().subscribe( respuesta => {
+    this.vehiculoServicio.getVehiculos().subscribe( respuesta => {
       console.log(respuesta);
       this.listaVehiculos = respuesta;
     })
@@ -59,7 +59,7 @@ export class PgListVehiculosComponent implements OnInit {
   }
 
   obtenerVehiculos():void {
-    this.vehiculoService.getVehiculos().subscribe(vehiculos => this.listaVehiculos = vehiculos);
+    this.vehiculoServicio.getVehiculos().subscribe(vehiculos => this.listaVehiculos = vehiculos);
   }
 
   /*deleteVehiculo(dato: number):void {
