@@ -13,6 +13,7 @@
         "duplicate-id-active": "off"
       }
     ],
-    "axe/name-role-value": "off"
+    "axe/name-role-value": "off",
+    "axe/aria": "off"
   }
 }

@@ -14,11 +14,14 @@ export class PgListVehiculosComponent implements OnInit {
   
   private _filtro: string = "";
 
+  //vehiculo: Vehiculo[] = [];
+
   get filtro(){
     return this._filtro
   }
   set filtro(filtro:string){
     this._filtro = filtro;
+
     //this.consultaVehiculos();
   }
 
@@ -28,27 +31,40 @@ export class PgListVehiculosComponent implements OnInit {
   constructor(
     private vehiculoService: VehiculoService
   ) {}
-
-  ngOnInit() {
+  
+    
+  
+  ngOnInit():void {
     /*this.consultaVehiculos();*/
     console.log('Ingreso a ejercitarse');
     this.vehiculoService.getVehiculos().subscribe( respuesta => {
       console.log(respuesta);
       this.listaVehiculos = respuesta;
     })
+    this.obtenerVehiculos();
   }
 
-  /*mostrar(){
+  mostrar(){
     this.mostrarImagenes = !this.mostrarImagenes;
   }
+
   /*consultaVehiculos(){
     this.vehiculoService.getVehiculos(this.filtro).subscribe(data =>{
       this.listaVehiculos = data;
     });
   }*/
 
-  /*recepcion(dato:number){
+  recepcion(dato:number){
     console.log('Dato:',dato);
-  }*/
+  }
 
+  obtenerVehiculos():void {
+    this.vehiculoService.getVehiculos().subscribe(vehiculos => this.listaVehiculos = vehiculos);
+  }
+
+  /*deleteVehiculo(dato: number):void {
+    this.vehiculoService.deleteVehiculo(dato);
+      this.vehiculo = this.vehiculoService.getVehiculos();
+  }*/
+  
 }

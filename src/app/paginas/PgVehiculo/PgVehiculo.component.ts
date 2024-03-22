@@ -10,7 +10,7 @@ import { VehiculoService } from '../../servicios/Vehiculo.service';
 })
 export class PgVehiculoComponent implements OnInit {
 
-  vehiculo?:Vehiculo = {
+  vehiculo?: Vehiculo = {
     codigo: "",
     marca: "",
     modelo: ""

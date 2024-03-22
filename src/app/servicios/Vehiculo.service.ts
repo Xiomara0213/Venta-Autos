@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Vehiculo } from '../utilitarios/modelos/Vehiculo';
 import { map, Observable } from 'rxjs';
@@ -9,43 +9,48 @@ import { map, Observable } from 'rxjs';
 })
 export class VehiculoService {
 
+  /*deleteVehiculo ( dato: number )
+  {
+    throw new Error( 'Method not implemented.' );
+  }*/
+  
   constructor(
     private http: HttpClient
   ) { }
   baseUrl = "http://www.epico.gob.ec/vehiculo/public/api/";
 
-  /*getVehiculos(): Vehiculo[]{
-    return this.listaVehiculos;
-  }*/
+  /*
+  Todos vehiculos => GET vehiculos/
+  Insert => POST vehiculo/
+  Update => PUT vehiculo/
+  Delete => DELETE vehiculo/:codigo
+  Consulta => GET vehiculo/:codigo
+  Consulta => OPTION
+  */
 
-  getVehiculos(): Observable<Vehiculo[]>{
+    getVehiculos(): Observable<Vehiculo[]>{
     return this.http.get<Respuesta>(this.baseUrl+"vehiculos/").pipe(
-      map(respuesta => {
-        return respuesta.data;
-      })
+      map(respuesta => respuesta.data)
     );
   }
+
+  insertVehiculo(vehiculo: Vehiculo){
+    let httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type' : 'application/json' })
+    };
+      /*let body = new HttpParams();
+      body = vehiculo.codigo ? body.set('codigo', vehiculo.codigo) : body;
+      body = vehiculo.marca ? body.set('marca', vehiculo.marca) : body;
+      body = vehiculo.modelo ? body.set('modelo', vehiculo.modelo) : body;
+      body = vehiculo.anio ? body.set('anio', vehiculo.anio) : body;
+      body = vehiculo.color ? body.set('color', vehiculo.color) : body;
+      body = vehiculo.kilometraje ? body.set('kilometraje', vehiculo.kilometraje) : body;
+      body = vehiculo.precio ? body.set('precio', vehiculo.precio) : body;
+      body = vehiculo.calificacion ? body.set('calificacion', vehiculo.calificacion) : body;*/
+
+    return this.http.post<Respuesta>(this.baseUrl+"vehiculo/", vehiculo, httpOptions);
+  }
  
-
-  /*getVehiculos(filtro?:string, rows?:number, page?:number):Observable<Vehiculo[]>{
-    let body = new HttpParams();
-    body = filtro ? body.set('filtro', filtro) : body;
-    body = rows ? body.set('rows', rows) : body;
-    body = page ? body.set('page', page) : body;
-    return this.http.get<Respuesta>(this.baseUrl+"vehiculos/",{params:body}).pipe(
-      map(respuesta => respuesta.data),
-      //catchError(this.handleError)
-    );
-  }*/
-  
-  /*getVehiculos(filtro: any):Observable<Array<Vehiculo>>{
-    const escucha: Observable<Array<Vehiculo>> = new Observable(escuchando => {
-      let lista = this.listaVehiculos.filter( elem => elem.marca.toLocaleLowerCase().includes(filtro.toLowerCase()))
-      escuchando.next(lista);
-    });
-    return escucha;
-  }*/
-
   getVehiculo(codigo:string): Observable<Vehiculo>{
     const escucha: Observable<Vehiculo> = new Observable(escuchando => {
       setTimeout(()=>{
@@ -68,10 +73,14 @@ export class VehiculoService {
     {"codigo":"A005", "marca":"HYUNDAI", "modelo":"ACCENT", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.hyundai.com.ec/static/media/rendimiento3.65a2ca8575719cfabb7c.webp","anio":2024,"calificacion":5},
   ];
 
+  /*getVehiculos(): Vehiculo[]{
+    return this.listaVehiculos;
+  }*/
+
 }
 
 export interface Respuesta {
   codigo: string;
   mensaje: string;
-  data: any;
+  data:Array<Vehiculo>|Vehiculo|any;
 }
