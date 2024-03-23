@@ -49,21 +49,26 @@
           <tbody>
             <tr *ngFor="let item of listaVehiculos">
               <td>
-                <img [src]="item.foto" style="width: 80px;" *ngIf="mostrarImagenes" >
+                <img [src]="item.foto" *ngIf="item.foto && mostrarImagenes" style="width: 80px;">
               </td>
-              <td>{{ item.codigo }}</td>
-              <td>{{ item.marca }}</td>
-              <td>{{ item.modelo | AEspacio:'-' | lowercase }}</td>
-              <td [innerText]="item.anio"></td>
+              <th scope="row">
+                <a>{{ item.codigo }}</a>
+              </th>
+              <td [innerHTML]="item.marca"></td>
+              <td>{{ item.modelo | lowercase | AEspacio:'-' }}</td>
+              <td>{{item.anio}}</td>
               <td>{{ item.color }}</td>
               <td>{{ item.kilometraje }}</td>
               <td>{{ item.precio | currency }}</td>
               <td>
-                <app-calificacion [calificacion]="item.calificacion" (accionClick)="recepcion($event)" ></app-calificacion>
+                {{item.calificacion}}
+                <!--<app-calificacion [calificacion]="item.calificacion" (accionClick)="recepcion($event)" ></app-calificacion>-->
               </td>
               <td>
-                <button class="btn btn-primary" [routerLink]="['/vehiculo/:codigo']">VER</button>
-                <!--<button class="btn btn-danger" (click)="deleteVehiculo(Vehiculos.dato)">ELIMINAR</button>-->
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-info" [routerLink]="['vehiculo/:codigo']" >VER</button>
+                  <button type="button" class="btn btn-danger" (click)="eliminar(item.codigo)" >ELIMINAR</button>
+                </div>
               </td>
             </tr>
           </tbody>

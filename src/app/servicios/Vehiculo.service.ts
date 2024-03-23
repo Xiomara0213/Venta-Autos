@@ -9,15 +9,14 @@ import { map, Observable } from 'rxjs';
 })
 export class VehiculoService {
 
-  /*deleteVehiculo ( dato: number )
-  {
-    throw new Error( 'Method not implemented.' );
-  }*/
-  
+  deleteVehiculo ( dato: number ){
+    
+  }
+
   constructor(
     private http: HttpClient
   ) { }
-  baseUrl = "http://www.epico.gob.ec/vehiculo/public/api/vehiculo/";
+  baseUrl = "https://epico.gob.ec/vehiculo/#/";
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type' : 'application/json' })
@@ -56,6 +55,10 @@ export class VehiculoService {
   actualizarVehiculo(vehiculo: Vehiculo, codigo:string){
     return this.http.put<Respuesta>(this.baseUrl+"vehiculo/"+codigo, vehiculo, this.httpOptions)
   }
+
+  eliminarVehiculo(codigo:string){
+    return this.http.delete<Respuesta>(this.baseUrl+"vehiculo/"+codigo);
+  }
   /*getVehiculo(codigo:string): Observable<Vehiculo>{
     const escucha: Observable<Vehiculo> = new Observable(escuchando => {
       setTimeout(()=>{
@@ -71,11 +74,11 @@ export class VehiculoService {
   }
   
   private listaVehiculos: Array<Vehiculo> = [
-    {"codigo":"A001", "marca":"CHEVROLET", "modelo":"ONIX-6", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.chevrolet.com.ec/content/dam/chevrolet/south-america/ecuador/espanol/index/cars/2021-onix-sedan/mov/10-images/onix-turbo-sedan.png?imwidth=420", "anio":2024, "calificacion":3}, 
-    {"codigo":"A002", "marca":"KIA", "modelo":"RIO-2", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.kia.com/content/dam/kwcms/ec/es/images/SHOWROOM2021/Rio5/features/rio5_side.png","anio":2024,"calificacion":4}, 
-    {"codigo":"A003", "marca":"CHERY", "modelo":"ARRIZO-5", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.chery.com.ec/hs-fs/hubfs/CHERY/WEB%202023/Arrizo%205%20Pro/Arrizo-5-pro_webp.webp?width=1920&height=714&name=Arrizo-5-pro_webp.webp","anio":2024,"calificacion":4}, 
-    {"codigo":"A004", "marca":"TOYOTA", "modelo":"AGYA", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.toyota.com.ec//admin/sites/default/files/2023-08/toyota-agya-color-rojo.png","anio":2024,"calificacion":5},
-    {"codigo":"A005", "marca":"HYUNDAI", "modelo":"ACCENT", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.hyundai.com.ec/static/media/rendimiento3.65a2ca8575719cfabb7c.webp","anio":2024,"calificacion":5},
+    {"codigo":"A0001", "marca":"CHEVROLET", "modelo":"ONIX-6", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.chevrolet.com.ec/content/dam/chevrolet/south-america/ecuador/espanol/index/cars/2021-onix-sedan/mov/10-images/onix-turbo-sedan.png?imwidth=420", "anio":2024, "calificacion":3}, 
+    {"codigo":"A0002", "marca":"KIA", "modelo":"RIO-2", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.kia.com/content/dam/kwcms/ec/es/images/SHOWROOM2021/Rio5/features/rio5_side.png","anio":2024,"calificacion":4}, 
+    {"codigo":"A0003", "marca":"CHERY", "modelo":"ARRIZO-5", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.chery.com.ec/hs-fs/hubfs/CHERY/WEB%202023/Arrizo%205%20Pro/Arrizo-5-pro_webp.webp?width=1920&height=714&name=Arrizo-5-pro_webp.webp","anio":2024,"calificacion":4}, 
+    {"codigo":"A0004", "marca":"TOYOTA", "modelo":"AGYA", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.toyota.com.ec//admin/sites/default/files/2023-08/toyota-agya-color-rojo.png","anio":2024,"calificacion":5},
+    {"codigo":"A0005", "marca":"HYUNDAI", "modelo":"ACCENT", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.hyundai.com.ec/static/media/rendimiento3.65a2ca8575719cfabb7c.webp","anio":2024,"calificacion":5},
   ];
 
   /*getVehiculos(): Vehiculo[]{

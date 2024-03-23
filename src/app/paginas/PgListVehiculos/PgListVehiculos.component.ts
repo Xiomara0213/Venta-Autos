@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { VehiculoService } from '../../servicios/Vehiculo.service';
 import { Vehiculo } from '../../utilitarios/modelos/Vehiculo';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-PgListVehiculos',
@@ -14,7 +15,7 @@ export class PgListVehiculosComponent implements OnInit {
   
   private _filtro: string = "";
 
-  //vehiculo: Vehiculo[] = [];
+  vehiculo: Vehiculo|any;
 
   get filtro(){
     return this._filtro
@@ -37,11 +38,8 @@ export class PgListVehiculosComponent implements OnInit {
   ngOnInit():void {
     /*this.consultaVehiculos();*/
     console.log('Ingreso a ejercitarse');
-    this.vehiculoServicio.getVehiculos().subscribe( respuesta => {
-      console.log(respuesta);
-      this.listaVehiculos = respuesta;
-    })
-    this.obtenerVehiculos();
+    this.consultarVehiculos();
+    /*this.obtenerVehiculos();*/
   }
 
   mostrar(){
@@ -49,7 +47,7 @@ export class PgListVehiculosComponent implements OnInit {
   }
 
   /*consultaVehiculos(){
-    this.vehiculoService.getVehiculos(this.filtro).subscribe(data =>{
+    this.vehiculoServicio.getVehiculos(this.filtro).subscribe(data =>{
       this.listaVehiculos = data;
     });
   }*/
@@ -62,9 +60,36 @@ export class PgListVehiculosComponent implements OnInit {
     this.vehiculoServicio.getVehiculos().subscribe(vehiculos => this.listaVehiculos = vehiculos);
   }
 
-  /*deleteVehiculo(dato: number):void {
-    this.vehiculoService.deleteVehiculo(dato);
-      this.vehiculo = this.vehiculoService.getVehiculos();
-  }*/
+  consultarVehiculos(){
+    this.vehiculoServicio.getVehiculos().subscribe( respuesta => {
+      console.log(respuesta);
+      this.listaVehiculos = respuesta;
+    });
+  }
+
+  eliminar(codigo:string){
+    Swal.fire({
+      title: "¿Estás seguro que deseas eliminar este registro?",
+      showCancelButton: true,
+      confirmButtonText: "Si",
+      cancelButtonText: "No",
+      icon: "question"
+    }).then((res) =>{
+      if(res.isConfirmed){
+        this.vehiculoServicio.eliminarVehiculo(codigo).subscribe( data =>{
+          if(data.codigo == '1'){
+            this.consultarVehiculos();
+            Swal.fire({
+              title: 'Mensaje',
+              text: 'Vehiculo eliminado con éxito',
+              icon: "success"
+            });
+          }
+        });
+      }
+    })
+    /*this.vehiculoServicio.deleteVehiculo(dato);
+      this.vehiculo = this.vehiculoServicio.getVehiculos();*/
+  }
   
 }

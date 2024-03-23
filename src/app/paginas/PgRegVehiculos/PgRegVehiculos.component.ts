@@ -23,7 +23,7 @@ export class PgRegVehiculosComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.Formulario = this.formBuilder.group({
-      "codigo": ['', [Validators.required, Validators.pattern(/^[a-zA-Z]\d{3}$/)]],
+      "codigo": ['', [Validators.required, Validators.pattern(/^[a-zA-Z]\d{4}$/)]],
       "marca": ['', [Validators.required]],
       "modelo": ['', [Validators.required]],
       "color": ['', [Validators.required]],
@@ -42,10 +42,6 @@ export class PgRegVehiculosComponent implements OnInit {
   }
 
   guardar(){
-    /*let vehiculo:Vehiculo = {...this.Formulario.value};
-    this.vehiculoServicio.addVehiculo(vehiculo);
-    console.log('Formulario',this.Formulario.value);*/
-
     if(this.Formulario.valid){
       this.vehiculoServicio.insertVehiculo({...this.Formulario.value}).subscribe(
         respuesta => {
@@ -73,6 +69,9 @@ export class PgRegVehiculosComponent implements OnInit {
         icon: "error"
       });
     }
+    /*let vehiculo:Vehiculo = {...this.Formulario.value};
+    this.vehiculoServicio.addVehiculo(vehiculo);
+    console.log('Formulario',this.Formulario.value);*/
   }
 
   get codigoControl(): AbstractControl|null {

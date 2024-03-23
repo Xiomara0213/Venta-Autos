@@ -20,14 +20,14 @@ export class PgVehiculoComponent implements OnInit {
     private vehiculoServicio: VehiculoService
   ) { 
       this.Formulario = this.formBuilder.group({
-        "codigo": ['', [Validators.required, Validators.pattern(/^[a-zA-Z]\d{3}$/)]],
+        "codigo": ['', [Validators.required]],
         "marca": ['', [Validators.required]],
         "modelo": ['', [Validators.required]],
         "color": ['', [Validators.required]],
-        "kilometraje": ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+        "kilometraje": ['', [Validators.required]],
         "precio": [],
-        "anio": ['', [Validators.required, Validators.pattern(/^\d{4}$/)]],
-        "calificacion": ['', [Validators.required, Validators.pattern(/^\d{1}$/)]],
+        "anio": ['', [Validators.required]],
+        "calificacion": ['', [Validators.required]],
       });
       this.Formulario.controls['codigo'].disable();
     }
@@ -83,18 +83,6 @@ export class PgVehiculoComponent implements OnInit {
 
   imprimir(){
 
-  }
-  get codigoControl(): AbstractControl|null {
-    return this.Formulario.get('codigo');
-  }
-  get kilometrajeControl(): AbstractControl|null {
-    return this.Formulario.get('kilometraje');
-  }
-  get anioControl(): AbstractControl|null {
-    return this.Formulario.get('anio');
-  }
-  get calificacionControl(): AbstractControl|null {
-    return this.Formulario.get('calificacion');
   }
 
 }
