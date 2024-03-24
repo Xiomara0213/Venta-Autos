@@ -52,69 +52,69 @@ export class PgClientesRegComponent implements OnInit {
   }
 
   guardar():void{
-    if(this.clienteForm.invalid) {
+    if(this.clienteForm.valid){
+      this.clienteService.crearCliente({...this.clienteForm.value}).subscribe(
+        cliente => {
+          if (cliente.codigo == '1'){
+            Swal.fire({
+              icon: 'success',
+              title: 'Cliente creado',
+              text: 'El cliente se ha creado correctamente.',
+              confirmButtonText: 'OK'
+            }).then( _res =>{
+              this.clienteForm.reset();
+            });
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Por favor, completa correctamente el formulario antes de enviarlo.',
+              confirmButtonText: 'OK'
+            });
+          }
+        }
+      );
+    }else{
       Swal.fire({
         icon: 'error',
         title: 'Error',
         text: 'Por favor, completa correctamente el formulario antes de enviarlo.',
         confirmButtonText: 'OK'
       });
-      return;
     }
-    const nuevoCliente = this.clienteForm.value;
-    this.clienteService.crearCliente(nuevoCliente).subscribe({
-      next:() => {
-        Swal.fire({
-        icon: 'success',
-        title: 'Cliente creado',
-        text: 'El cliente se ha creado correctamente.',
-        confirmButtonText: 'OK'
-        }).then(() => {
-          this.clienteForm.reset();
-        });
-      },
-      error: (error) => {
-        console.error('Error al crear cliente:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error al crear cliente',
-          text: 'Ha ocurrido un error al crear el cliente. Por favor, intenta nuevamente más tarde.',
-          confirmButtonText: 'OK'
-        });
-      }
+  }
+
+  editar(cliente:string): void {
+    this.clienteForm.crearCliente(this.clientes).subscribe((data: any) =>{
+      Swal.fire({
+        title: "¿Estás seguro que deseas editar este registro?",
+        showCancelButton: true,
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        icon: "question"
+      }).then((res) =>{
+        if (res.isConfirmed) {
+          this.clienteForm.actualizarCliente(this.clientes, cliente).subscribe((data: { clientes: string; }) =>{
+            if(data.clientes == '1'){
+              Swal.fire({
+                title: 'Mensaje',
+                text: 'Vehículo actualizado con éxito',
+                icon: 'success'
+              });
+            }
+          });
+        }else{
+          Swal.fire({
+            title: 'Error',
+            text: 'Ha ocurrido un error al actualizar el vehículo. Por favor, intenta nuevamente más tarde.',
+            icon: 'error'
+          });
+        }
+      });
     });
   }
 
-  editar(): void {
-    if (this.clienteForm.invalid) {
-      return;
-    }
-    const clienteActualizado = this.clienteForm.value;
-    const idCliente = clienteActualizado.id;
-    this.clienteService.actualizarCliente(idCliente, clienteActualizado).subscribe({
-      next: () => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Cliente actualizado',
-          text: 'El cliente se ha actualizado correctamente.',
-          confirmButtonText: 'OK'
-        }).then(() => {
-          this.clienteForm.reset();
-        });
-      },
-      error: (error) => {
-        console.error('Error al actualizar cliente:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error al actualizar cliente',
-          text: 'Ha ocurrido un error al actualizar el cliente. Por favor, intenta nuevamente más tarde.',
-          confirmButtonText: 'OK'
-        });
-      }
-    });
-  }
-
-  eliminarCliente(idCliente: string): void {
+  eliminarCliente(cliente: string): void {
     Swal.fire({
       icon: 'warning',
       title: '¿Estás seguro?',
@@ -122,9 +122,9 @@ export class PgClientesRegComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.clienteService.eliminarCliente(idCliente).subscribe({
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.clienteService.eliminarCliente(cliente).subscribe({
           next: () => {
             Swal.fire({
               icon: 'success',

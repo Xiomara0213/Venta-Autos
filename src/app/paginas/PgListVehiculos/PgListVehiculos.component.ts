@@ -88,4 +88,34 @@ export class PgListVehiculosComponent implements OnInit {
       this.vehiculo = this.vehiculoServicio.getVehiculos();*/
   }
   
+  editar(codigo: string): void {
+    this.vehiculoServicio.insertVehiculo(this.vehiculo).subscribe( data =>{
+      Swal.fire({
+        title: "¿Estás seguro que deseas editar este registro?",
+        showCancelButton: true,
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        icon: "question"
+      }).then((res) =>{
+        if (res.isConfirmed) {
+          this.vehiculoServicio.actualizarVehiculo(this.vehiculo, codigo).subscribe(data =>{
+            if(data.codigo == '1'){
+              Swal.fire({
+                title: 'Mensaje',
+                text: 'Vehículo actualizado con éxito',
+                icon: 'success'
+              });
+            }
+          });
+        }else{
+          Swal.fire({
+            title: 'Error',
+            text: 'Ha ocurrido un error al actualizar el vehículo. Por favor, intenta nuevamente más tarde.',
+            icon: 'error'
+          });
+        }
+      });
+    });
+  }
 }
+
