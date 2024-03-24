@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Vehiculo } from '../utilitarios/modelos/Vehiculo';
-import { map, Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -9,14 +10,10 @@ import { map, Observable } from 'rxjs';
 })
 export class VehiculoService {
 
-  deleteVehiculo ( dato: number ){
-    
-  }
-
   constructor(
     private http: HttpClient
   ) { }
-  baseUrl = "https://epico.gob.ec/vehiculo/#/";
+  baseUrl = "https://epico.gob.ec/vehiculo/";
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type' : 'application/json' })
@@ -29,9 +26,9 @@ export class VehiculoService {
         Consulta => GET vehiculo/:codigo
         */
 
-    getVehiculos(): Observable<Vehiculo[]>{
+  getVehiculos(): Observable<Vehiculo[]>{
     return this.http.get<Respuesta>(this.baseUrl+"vehiculos/").pipe(
-      map(respuesta => respuesta.data)
+      map(respuesta => respuesta.data),
     );
   }
 

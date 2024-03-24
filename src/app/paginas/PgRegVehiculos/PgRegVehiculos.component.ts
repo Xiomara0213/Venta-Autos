@@ -3,9 +3,7 @@ import { Vehiculo } from '../../utilitarios/modelos/Vehiculo';
 import { VehiculoService } from '../../servicios/Vehiculo.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { HttpParams } from '@angular/common/http';
 import Swal from 'sweetalert2';
-import { __param } from 'tslib';
 
 @Component({
   selector: 'app-PgRegVehiculos',

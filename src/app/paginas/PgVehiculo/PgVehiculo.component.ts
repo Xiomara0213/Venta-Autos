@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Vehiculo } from '../../utilitarios/modelos/Vehiculo';
 import { ActivatedRoute } from '@angular/router';
 import { VehiculoService } from '../../servicios/Vehiculo.service';
-import { FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,11 +13,11 @@ import Swal from 'sweetalert2';
 export class PgVehiculoComponent implements OnInit {
 
   Formulario: FormGroup;
-  vehiculo?: Vehiculo;
-  formBuilder: any;
+  vehiculo?: Vehiculo|any;
   constructor(
     private route: ActivatedRoute,
-    private vehiculoServicio: VehiculoService
+    private vehiculoServicio: VehiculoService,
+    private formBuilder: FormBuilder
   ) { 
       this.Formulario = this.formBuilder.group({
         "codigo": ['', [Validators.required]],
@@ -53,7 +53,9 @@ export class PgVehiculoComponent implements OnInit {
           });
         }
       });
-      //this.vehiculo = this.vehiculoService.getVehiculo(params['codigo']);
+      /*this.vehiculo = this.vehiculoServicio.getVehiculo(params['codigo']).subscribe(vehiculo =>{
+        vehiculo = vehiculo;
+      });*/
     });
   }
 
@@ -85,6 +87,7 @@ export class PgVehiculoComponent implements OnInit {
 
   }
 
+  
 }
 
 

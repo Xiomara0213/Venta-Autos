@@ -15,7 +15,7 @@ export class PgListVehiculosComponent implements OnInit {
   
   private _filtro: string = "";
 
-  vehiculo: Vehiculo|any;
+  vehiculo: Vehiculo[]|any;
 
   get filtro(){
     return this._filtro
@@ -25,9 +25,6 @@ export class PgListVehiculosComponent implements OnInit {
 
     //this.consultaVehiculos();
   }
-
-  @Input() valor:string = '';
-  
   
   constructor(
     private vehiculoServicio: VehiculoService
@@ -36,10 +33,9 @@ export class PgListVehiculosComponent implements OnInit {
     
   
   ngOnInit():void {
-    /*this.consultaVehiculos();*/
-    console.log('Ingreso a ejercitarse');
-    this.consultarVehiculos();
-    /*this.obtenerVehiculos();*/
+    //console.log('Ingreso a ejercitarse');
+    //this.consultarVehiculos();
+    this.obtenerVehiculos();
   }
 
   mostrar(){
@@ -52,17 +48,17 @@ export class PgListVehiculosComponent implements OnInit {
     });
   }*/
 
-  recepcion(dato:number){
+  /*recepcion(dato:number){
     console.log('Dato:',dato);
-  }
+  }*/
 
   obtenerVehiculos():void {
-    this.vehiculoServicio.getVehiculos().subscribe(vehiculos => this.listaVehiculos = vehiculos);
+    //this.vehiculoServicio.getVehiculos().subscribe(vehiculos => this.listaVehiculos = vehiculos);
   }
 
   consultarVehiculos(){
     this.vehiculoServicio.getVehiculos().subscribe( respuesta => {
-      console.log(respuesta);
+      //console.log(respuesta);
       this.listaVehiculos = respuesta;
     });
   }
