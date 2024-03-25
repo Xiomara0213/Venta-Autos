@@ -51,7 +51,7 @@ export class PgClientesRegComponent implements OnInit {
     this._router.navigate(['/home']);
   }
 
-  guardar():void{
+  guardarCliente():void{
     if(this.clienteForm.valid){
       this.clienteService.crearCliente({...this.clienteForm.value}).subscribe(
         cliente => {
@@ -84,33 +84,31 @@ export class PgClientesRegComponent implements OnInit {
     }
   }
 
-  editar(cliente:string): void {
-    this.clienteForm.crearCliente(this.clientes).subscribe((data: any) =>{
-      Swal.fire({
-        title: "¿Estás seguro que deseas editar este registro?",
-        showCancelButton: true,
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
-        icon: "question"
-      }).then((res) =>{
-        if (res.isConfirmed) {
-          this.clienteForm.actualizarCliente(this.clientes, cliente).subscribe((data: { clientes: string; }) =>{
-            if(data.clientes == '1'){
-              Swal.fire({
-                title: 'Mensaje',
-                text: 'Vehículo actualizado con éxito',
-                icon: 'success'
-              });
-            }
-          });
-        }else{
-          Swal.fire({
-            title: 'Error',
-            text: 'Ha ocurrido un error al actualizar el vehículo. Por favor, intenta nuevamente más tarde.',
-            icon: 'error'
-          });
-        }
-      });
+  editarCliente(cliente:string): void {
+    Swal.fire({
+      title: "¿Estás seguro que deseas editar este registro?",
+      showCancelButton: true,
+      confirmButtonText: "Si",
+      cancelButtonText: "No",
+      icon: "question"
+    }).then((res) =>{
+      if (res.isConfirmed) {
+        this.clienteForm.actualizarCliente(this.clientes, cliente).subscribe((data: { clientes: string; }) =>{
+          if(data.clientes == '1'){
+            Swal.fire({
+              title: 'Mensaje',
+              text: 'Vehículo actualizado con éxito',
+              icon: 'success'
+            });
+          }
+        });
+      }else{
+        Swal.fire({
+          title: 'Error',
+          text: 'Ha ocurrido un error al actualizar el vehículo. Por favor, intenta nuevamente más tarde.',
+          icon: 'error'
+        });
+      }
     });
   }
 

@@ -26,3 +26,4 @@ describe('PgClientesRegComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
