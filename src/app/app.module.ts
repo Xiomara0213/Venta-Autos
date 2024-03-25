@@ -5,7 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginaModule } from './paginas/PaginaModule';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { UsuariointerceptorService } from './interceptores/usuariointerceptor.service';
 
 @NgModule({
   declarations: [		
@@ -20,7 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule   
   ],
 
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: UsuariointerceptorService, multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

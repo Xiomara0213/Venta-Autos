@@ -43,7 +43,8 @@ export class VehiculoService {
             body = vehiculo.kilometraje ? body.set('kilometraje', vehiculo.kilometraje) : body;
             body = vehiculo.precio ? body.set('precio', vehiculo.precio) : body;
             body = vehiculo.calificacion ? body.set('calificacion', vehiculo.calificacion) : body;*/
-    return this.http.post<Respuesta>(this.baseUrl+"vehiculo/", vehiculo, this.httpOptions);
+    return this.http.post<Respuesta>(this.baseUrl+"vehiculo/", vehiculo, 
+    );
   }
  
   getVehiculo(codigo:string){
