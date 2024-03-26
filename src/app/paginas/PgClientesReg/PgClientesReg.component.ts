@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 export class PgClientesRegComponent implements OnInit {
 
   clienteForm: FormGroup|any;
-  quiereContacto = false;
+  quiereContacto:boolean = false;
   tituloPagina = "REGISTRO DEL CLIENTE";
   clientes: Cliente[]|any= [];
 
@@ -23,25 +23,43 @@ export class PgClientesRegComponent implements OnInit {
     private clienteService: ClienteService
   ){
     this.clienteForm = this.fb.group({
-      nombre: ['', Validators.required, Validators.maxLength(30)],
-      password: ['', Validators.required],
-      email: [''],
-      telefono: ['']
+      nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      apellido: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      contraseña: ['',[Validators.required]],
+      quiereContacto: [false],
+      correo: [''],
+      telefono: ['', [Validators.maxLength(10)]]
     });
   }
 
+  onSubmit(){
+    console.log(this.quiereContacto);
+    if (this.clienteForm.value){
+      console.log('invalid form');
+      return;
+    }
+    console.log(this.clienteForm.value);
+    const cliente = {
+      nombre: this.clienteForm.nombre,
+      apellido: this.clienteForm.apellido,
+      contraseña: this.clienteForm.contraseña,
+      email: this.clienteForm.email,
+      telefono: this.clienteForm.telefono,
+    };
+    this.clienteService.crearCliente(cliente).subscribe(data =>{
+      console.log(data);
+    })
+  }
   ngOnInit (): void { 
-    this.obtenerClientes();
-    
   }
   
-  obtenerClientes(): void {
+  /*obtenerClientes(): void {
     this.clienteService.obtenerClientes().subscribe({
       next: (cliente) => {
         this.clientes = cliente;
       }
     });
-  }
+  }*/
 
   toggleContacto(): void {
     this.quiereContacto = !this.quiereContacto;
@@ -55,7 +73,7 @@ export class PgClientesRegComponent implements OnInit {
     if(this.clienteForm.valid){
       this.clienteService.crearCliente({...this.clienteForm.value}).subscribe(
         cliente => {
-          if (cliente.codigo == '1'){
+          if (cliente.data == '1'){
             Swal.fire({
               icon: 'success',
               title: 'Cliente creado',
@@ -74,17 +92,10 @@ export class PgClientesRegComponent implements OnInit {
           }
         }
       );
-    }else{
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Por favor, completa correctamente el formulario antes de enviarlo.',
-        confirmButtonText: 'OK'
-      });
     }
   }
 
-  editarCliente(cliente:string): void {
+  /*editarCliente(cliente:string): void {
     Swal.fire({
       title: "¿Estás seguro que deseas editar este registro?",
       showCancelButton: true,
@@ -110,9 +121,9 @@ export class PgClientesRegComponent implements OnInit {
         });
       }
     });
-  }
+  }*/
 
-  eliminarCliente(cliente: string): void {
+  /*eliminarCliente(cliente: string): void {
     Swal.fire({
       icon: 'warning',
       title: '¿Estás seguro?',
@@ -143,6 +154,6 @@ export class PgClientesRegComponent implements OnInit {
         });
       }
     });
-  }
+  }*/
 
 }

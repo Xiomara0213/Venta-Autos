@@ -11,11 +11,11 @@ import Swal from 'sweetalert2';
 export class PgListVehiculosComponent implements OnInit {
 
   public mostrarImagenes = false;
-  public listaVehiculos:Array<Vehiculo> = [];
   
   private _filtro: string = "";
 
   vehiculo: Vehiculo[]|any;
+  public listaVehiculos:Array<Vehiculo>|any = [];
 
   get filtro(){
     return this._filtro
@@ -42,24 +42,16 @@ export class PgListVehiculosComponent implements OnInit {
     this.mostrarImagenes = !this.mostrarImagenes;
   }
 
-  /*consultaVehiculos(){
-    this.vehiculoServicio.getVehiculos(this.filtro).subscribe(data =>{
+  obtenerVehiculos():void {
+    this.vehiculoServicio.getVehiculos().subscribe( (data) =>{
+      console.log('func', data);
       this.listaVehiculos = data;
     });
-  }*/
-
-  /*recepcion(dato:number){
-    console.log('Dato:',dato);
-  }*/
-
-  obtenerVehiculos():void {
-    //this.vehiculoServicio.getVehiculos().subscribe(vehiculos => this.listaVehiculos = vehiculos);
   }
 
   consultarVehiculos(){
-    this.vehiculoServicio.getVehiculos().subscribe( respuesta => {
-      //console.log(respuesta);
-      this.listaVehiculos = respuesta;
+    this.vehiculoServicio.getVehiculos().subscribe( data => {
+      this.listaVehiculos = data;
     });
   }
 
@@ -84,8 +76,6 @@ export class PgListVehiculosComponent implements OnInit {
         });
       }
     })
-    /*this.vehiculoServicio.deleteVehiculo(dato);
-      this.vehiculo = this.vehiculoServicio.getVehiculos();*/
   }
   
   editar(codigo: string): void {

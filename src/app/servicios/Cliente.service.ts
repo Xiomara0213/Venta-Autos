@@ -15,33 +15,34 @@ export class ClienteService {
     private http: HttpClient
   ) { }
 
-  baseUrl = "https://epico.gob.ec/vehiculo/#/Cliente/";
+  baseUrl = "https://epico.gob.ec/vehiculo/public/api";
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   obtenerClientes(): Observable<cliente> {
-    return this.http.get<cliente>(this.baseUrl+"clientes/").pipe(
+    return this.http.get<cliente>(this.baseUrl+"/clientes/").pipe(
       map(cliente => cliente.data),
     );
   }
 
-  crearCliente(cliente: string): Observable<cliente> {
-    return this.http.post<cliente>(this.baseUrl+"clientes/", cliente, this.httpOptions);
+  crearCliente(data:any): Observable<cliente> {
+    return this.http.post<cliente>(this.baseUrl+"/clientes/", data, this.httpOptions);
   }
 
   actualizarCliente(id: string, cliente: string): Observable<cliente> {
-    return this.http.put<cliente>(`${this.baseUrl}/${id}`, cliente);
+    return this.http.put<cliente>(`${this.baseUrl+"/clientes/"}/${id}`, cliente);
   }
 
   eliminarCliente(id: string): Observable<cliente> {
-    return this.http.delete<cliente>(`${this.baseUrl}/${id}`);
+    return this.http.delete<cliente>(`${this.baseUrl+"/clientes/"}/${id}`);
   }
 
 }
 
 export interface cliente {
+  id: string;
   codigo: string;
   mensaje: string;
   data:Array<Cliente>|Cliente|any;

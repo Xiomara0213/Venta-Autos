@@ -4,43 +4,39 @@
   </div>
   <div class="card-body"> 
     <div class="row">
-      <form [formGroup]="clienteForm">
+      <form [formGroup]="clienteForm" (submit)="onSubmit()">
 
         <div class="mb-3 row">
-          <label for="nombre" class="col-sm-2 col-form-label fw-bold">NOMBRE</label>
-          <div class="col-md-10">
-            <input type="text" class="form-control" formControlName="nombre">
-            <button type="submit">AGREGAR</button>           
-          </div>
+          <input type="text" placeholder="NOMBRE" class="form-control w-20" formControlName="nombre" 
+            [ngClass]="{'is-invalid': clienteForm.get('nombre')?.invalid && clienteForm.get('nombre')?.touched}">
+          <span *ngIf="clienteForm.get('nombre')?.invalid && clienteForm.get('nombre')?.touched" class="text-danger">Este campo es necesario y debe tener mínimo 3 caracteres</span>
         </div>
 
         <div class="mb-3 row">
-          <label for="password" class="col-sm-2 col-form-label fw-bold">PASSWORD</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control" id="password" formControlName="password">
-            <button type="submit">OK</button>
-          </div>
+          <input type="text" placeholder="APELLIDO" class="form-control w-20" formControlName="apellido"
+            [ngClass]="{'is-invalid': clienteForm.get('apellido')?.invalid && clienteForm.get('apellido')?.touched}">
+          <span *ngIf="clienteForm.get('apellido')?.invalid && clienteForm.get('apellido')?.touched" class="text-danger">Este campo es necesario y debe tener mínimo 3 caracteres</span>
+        </div>
+
+        <div class="mb-3 row">
+          <input type="password" placeholder="CONTRASEÑA" class="form-control w-20" formControlName="contraseña"
+            [ngClass]="{'is-invalid': clienteForm.get('contraseña')?.invalid && clienteForm.get('contraseña')?.touched}">
         </div>
 
         <div class="mb-3 form-check">
-          <div class="mb-3 fw-bold">
-            <input type="checkbox" formControlName="quiereContacto" (change)="toggleContacto()">¿QUIERES SER CONTACTADO?
-          </div>
+          <input placeholder="checkbox" type="checkbox" formControlName="quiereContacto" (change)="toggleContacto()">¿QUIERES SER CONTACTADO?
         </div>
 
-        <div class="mb-3 row" *ngIf="quiereContacto">
-          <label for="correo" class="col-sm-2 col-form-label fw-bold">E-MAIL</label>
+        <div class="mb-3 row" *ngIf="clienteForm.value.quiereContacto">
           <div class="col-sm-10">
-            <input type="email" class="form-control" id="correo" formControlName="correo" aria-describedby="correoHelp">
+            <input type="email" placeholder="CORREO ELECTRÓNICO" class="form-control w-20" formControlName="correo" aria-describedby="correoHelp">
             <div id="correoHelp" class="form-text">No compartiremos tu correo con nadie</div>
+            <span *ngIf="clienteForm.get('correo')?.invalid && clienteForm.get('correo')?.touched && clienteForm.value.quiereContacto" class="text-danger">Este campo es obligatorio</span>
           </div>
-        </div>
-        
-        <div class="mb-3 row" *ngIf="quiereContacto">
-          <label for="telefono" class="col-sm-2 col-form-label fw-bold">TELEFONO</label>
           <div class="col-sm-10">
-            <input type="number" class="form-control" id="telefono" formControlName="telefono" aria-describedby="telefonoHelp">
+            <input type="number" placeholder="TELEFONO" class="form-control W-20" formControlName="telefono" aria-describedby="telefonoHelp">
             <div id="telefonoHelp" class="form-text">No compartiremos tu número con nadie</div>
+            <span *ngIf="clienteForm.get('telefono')?.invalid && clienteForm.get('telefono')?.touched && clienteForm.value.quiereContacto" class="text-danger">Este campo es obligatorio</span>
           </div>
         </div>
 
@@ -48,12 +44,8 @@
     </div>
 
     <div class="d-md-block">
-      <button class="btn btn-primary" type="button" (click)="guardarCliente()">REGISTRAR</button>
+      <button class="btn btn-primary" type="submit" (click)="guardarCliente()">REGISTRAR</button>
     </div>
-    <div class="d-md-block">
-      <button class="btn btn-success" type="button" (click)="editarCliente(clientes)">EDITAR</button>
-    </div>
-
   </div>
   <div class="card-footer text-center">
     <button class="btn btn-primary" style="width: 100px" (click)="goInicio()">HOME</button>
