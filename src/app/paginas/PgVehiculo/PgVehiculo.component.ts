@@ -23,9 +23,9 @@ export class PgVehiculoComponent implements OnInit {
         "codigo": ['', [Validators.required]],
         "marca": ['', [Validators.required]],
         "modelo": ['', [Validators.required]],
-        "color": ['', [Validators.required]],
+        "color": [''],
         "kilometraje": ['', [Validators.required]],
-        "precio": [],
+        "precio": [''],
         "anio": ['', [Validators.required]],
         "calificacion": ['', [Validators.required]],
       });
@@ -33,39 +33,12 @@ export class PgVehiculoComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.route.params.subscribe(params =>{
-      this.vehiculoServicio.getVehiculo(params['codigo']).subscribe(data =>{
-        if(data.codigo == '1'){
-          this.vehiculo = data.data;
-          this.Formulario.controls['codigo'].setValue(this.vehiculo?.codigo);
-          this.Formulario.controls['marca'].setValue(this.vehiculo?.marca);
-          this.Formulario.controls['modelo'].setValue(this.vehiculo?.modelo);
-          this.Formulario.controls['color'].setValue(this.vehiculo?.color);
-          this.Formulario.controls['kilometraje'].setValue(this.vehiculo?.kilometraje);
-          this.Formulario.controls['precio'].setValue(this.vehiculo?.precio);
-          this.Formulario.controls['anio'].setValue(this.vehiculo?.anio);
-          this.Formulario.controls['calificacion'].setValue(this.vehiculo?.calificacion);
-        }else{
-          Swal.fire({
-            title: "Mensaje de Alerta",
-            text: "No se pudo cargar la información",
-            icon: "error"
-          });
-        }
-      });
-      /*this.vehiculo = this.vehiculoServicio.getVehiculo(params['codigo']).subscribe(vehiculo =>{
-        vehiculo = vehiculo;
-      });*/
-    });
-  }
-
-  goBack(): void{
-    window.history.back();
+    
   }
 
   guardar(){
     if(this.Formulario.valid){
-      this.vehiculoServicio.actualizarVehiculo({...this.Formulario.value}, this.Formulario.controls['codigo'].value).subscribe( data =>{
+      this.vehiculoServicio.putVehiculo({...this.Formulario.value}, this.Formulario.controls['codigo'].value).subscribe( data =>{
         if(data.codigo == '1'){
           Swal.fire({
             title: "Mensaje",
@@ -84,10 +57,38 @@ export class PgVehiculoComponent implements OnInit {
   }
 
   imprimir(){
-
   }
 
-  
+  editar(codigo: string): void {
+    this.vehiculoServicio.postVehiculo(this.vehiculo).subscribe( data =>{
+      Swal.fire({
+        title: "¿Estás seguro que deseas editar este registro?",
+        showCancelButton: true,
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        icon: "question"
+      }).then((res) =>{
+        if (res.isConfirmed) {
+          this.vehiculoServicio.putVehiculo(this.vehiculo, codigo).subscribe(data =>{
+            if(data.codigo == '1'){
+              Swal.fire({
+                title: 'Mensaje',
+                text: 'Vehículo actualizado con éxito',
+                icon: 'success'
+              });
+            }
+          });
+        }else{
+          Swal.fire({
+            title: 'Error',
+            text: 'Ha ocurrido un error al actualizar el vehículo. Por favor, intenta nuevamente más tarde.',
+            icon: 'error'
+          });
+        }
+      });
+    });
+  }
+
 }
 
 

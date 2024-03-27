@@ -14,61 +14,30 @@ export class VehiculoService {
   constructor(
     private http: HttpClient
   ) { }
-  baseUrl = "https://epico.gob.ec/vehiculo/public/api";
+  baseUrl = "https://epico.gob.ec/vehiculo/public/api/";
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type' : 'application/json' })
   };
-        /*
-        Todos vehiculos => GET vehiculos/
-        Insert => POST vehiculo/
-        Update => PUT vehiculo/:codigo
-        Delete => DELETE vehiculo/:codigo
-        Consulta => GET vehiculo/:codigo
-        */
 
-  getVehiculos(): Observable<Respuesta>{
-    return this.http.get<Respuesta>(this.baseUrl+"/vehiculos/").pipe(
-      map(respuesta => respuesta.data),
-    );
+  getVehiculos(){
+    return this.http.get<Respuesta>(this.baseUrl+"vehiculos/");
   }
 
-  insertVehiculo(vehiculo: Vehiculo){
-            /*let body = new HttpParams();
-            body = vehiculo.codigo ? body.set('codigo', vehiculo.codigo) : body;
-            body = vehiculo.marca ? body.set('marca', vehiculo.marca) : body;
-            body = vehiculo.modelo ? body.set('modelo', vehiculo.modelo) : body;
-            body = vehiculo.anio ? body.set('anio', vehiculo.anio) : body;
-            body = vehiculo.color ? body.set('color', vehiculo.color) : body;
-            body = vehiculo.kilometraje ? body.set('kilometraje', vehiculo.kilometraje) : body;
-            body = vehiculo.precio ? body.set('precio', vehiculo.precio) : body;
-            body = vehiculo.calificacion ? body.set('calificacion', vehiculo.calificacion) : body;*/
-    return this.http.post<Respuesta>(this.baseUrl+"vehiculo/", vehiculo);
+  postVehiculo(vehiculos: any ){
+    return this.http.post<Respuesta>(this.baseUrl+"vehiculo/", vehiculos);
   }
  
   getVehiculo(codigo:string){
     return this.http.get<Respuesta>(this.baseUrl+"vehiculo/"+codigo);
   }
 
-  actualizarVehiculo(vehiculo: Vehiculo, codigo:string){
+  putVehiculo(vehiculo: any, codigo:string){
     return this.http.put<Respuesta>(this.baseUrl+"vehiculo/"+codigo, vehiculo, this.httpOptions);
   }
 
-  eliminarVehiculo(codigo:string){
+  deleteVehiculo(codigo:string){
     return this.http.delete<Respuesta>(this.baseUrl+"vehiculo/"+codigo);
-  }
-  /*getVehiculo(codigo:string): Observable<Vehiculo>{
-    const escucha: Observable<Vehiculo> = new Observable(escuchando => {
-      setTimeout(()=>{
-        let vehiculo = this.listaVehiculos.find(ele => ele.codigo === codigo);
-        escuchando.next(vehiculo); //next; error; complete
-      }, 400);
-    });
-    return escucha;
-  }*/
-  
-  addVehiculo(vehiculo: Vehiculo){
-    this.listaVehiculos.push(vehiculo);
   }
   
   public listaVehiculos: Array<Vehiculo> = [
@@ -78,10 +47,6 @@ export class VehiculoService {
     {"codigo":"A0004", "marca":"TOYOTA", "modelo":"AGYA", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.toyota.com.ec//admin/sites/default/files/2023-08/toyota-agya-color-rojo.png","anio":2024,"calificacion":5},
     {"codigo":"A0005", "marca":"HYUNDAI", "modelo":"ACCENT", "color":"AZUL", "kilometraje":"50000", "precio":17000, "foto":"https://www.hyundai.com.ec/static/media/rendimiento3.65a2ca8575719cfabb7c.webp","anio":2024,"calificacion":5},
   ];
-
-  /*getVehiculos(): Vehiculo[]{
-    return this.listaVehiculos;
-  }*/
 
 }
 

@@ -19,8 +19,8 @@
         </div>
 
         <div class="mb-3 row">
-          <input type="password" placeholder="CONTRASEÑA" class="form-control w-20" formControlName="contraseña"
-            [ngClass]="{'is-invalid': clienteForm.get('contraseña')?.invalid && clienteForm.get('contraseña')?.touched}">
+          <input type="password" placeholder="CONTRASEÑA" class="form-control w-20" formControlName="password"
+            [ngClass]="{'is-invalid': clienteForm.get('password')?.invalid && clienteForm.get('password')?.touched}">
         </div>
 
         <div class="mb-3 form-check">
@@ -29,9 +29,9 @@
 
         <div class="mb-3 row" *ngIf="clienteForm.value.quiereContacto">
           <div class="col-sm-10">
-            <input type="email" placeholder="CORREO ELECTRÓNICO" class="form-control w-20" formControlName="correo" aria-describedby="correoHelp">
+            <input type="email" placeholder="CORREO ELECTRÓNICO" class="form-control w-20" formControlName="email" aria-describedby="correoHelp">
             <div id="correoHelp" class="form-text">No compartiremos tu correo con nadie</div>
-            <span *ngIf="clienteForm.get('correo')?.invalid && clienteForm.get('correo')?.touched && clienteForm.value.quiereContacto" class="text-danger">Este campo es obligatorio</span>
+            <span *ngIf="clienteForm.get('email')?.invalid && clienteForm.get('email')?.touched && clienteForm.value.quiereContacto" class="text-danger">Este campo es obligatorio</span>
           </div>
           <div class="col-sm-10">
             <input type="number" placeholder="TELEFONO" class="form-control W-20" formControlName="telefono" aria-describedby="telefonoHelp">

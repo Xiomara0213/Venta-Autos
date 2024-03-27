@@ -12,7 +12,7 @@
             <div class="col-sm-10">
               <input type="text" class="form-control" id="staticCodigo" name="codigo" formControlName="codigo">
               <span class="text-danger" *ngIf="Formulario.controls['codigo'].errors?.['required']">Valor Requerido</span>
-              <span class="text-danger" *ngIf="codigoControl && codigoControl.errors?.['pattern']">El código debe comenzar con una letra y estar seguido de cuatro dígitos</span>              
+              <span class="text-danger" *ngIf="codigoControl && codigoControl.errors?.['pattern']">El código debe comenzar con una letra y estar seguido de dígitos</span>              
             </div>
           </div>
 
@@ -29,14 +29,6 @@
             <div class="col-sm-10">
               <input type="text" class="form-control" id="staticCodigo" name="modelo" formControlName="modelo">
               <span class="text-danger" *ngIf="Formulario.controls['modelo'].errors?.['required']">Valor Requerido</span>
-            </div>
-          </div>
-          
-          <div class="mb-3 row">
-            <label for="staticCodigo" class="col-sm-2 col-form-label fw-bold">COLOR</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="staticCodigo" name="color" formControlName="color">
-              <span class="text-danger" *ngIf="Formulario.controls['color'].errors?.['required']">Valor Requerido</span>
             </div>
           </div>
 

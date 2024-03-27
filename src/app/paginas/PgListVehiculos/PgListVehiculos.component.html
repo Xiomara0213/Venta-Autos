@@ -51,23 +51,18 @@
               <td>
                 <img [src]="item.foto" *ngIf="item.foto && mostrarImagenes" style="width: 80px;">
               </td>
-              <th scope="row">
-                <a>{{ item.codigo }}</a>
-              </th>
+              <td>{{ item.codigo }}</td>
               <td [innerHTML]="item.marca"></td>
               <td>{{ item.modelo | lowercase | AEspacio:'-' }}</td>
               <td>{{item.anio}}</td>
               <td>{{ item.color }}</td>
               <td>{{ item.kilometraje }}</td>
               <td>{{ item.precio | currency }}</td>
-              <td>
-                {{item.calificacion}}
-                <!--<app-calificacion [calificacion]="item.calificacion" (accionClick)="recepcion($event)" ></app-calificacion>-->
-              </td>
+              <td>{{item.calificacion}}</td>
               <td>
                 <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-info" [routerLink]="['vehiculo/:codigo']" >VER</button>
-                  <button type="button" class="btn btn-info" (click)="editar(item.codigo)">EDITAR</button>
+                  <button type="button" class="btn btn-info" [routerLink]="['/detalle/' + item.codigo]" >VER</button>
+                  <button type="button" class="btn btn-info" [routerLink]="['/editar/' + item.codigo]">EDITAR</button>
                   <button type="button" class="btn btn-danger" (click)="eliminar(item.codigo)" >ELIMINAR</button>
                 </div>
               </td>

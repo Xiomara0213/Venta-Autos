@@ -8,6 +8,7 @@ import { PgRegVehiculosComponent } from "./PgRegVehiculos/PgRegVehiculos.compone
 import { UtilitariosModule } from "../utilitarios/UtilitariosModule";
 import { PgHomeComponent } from "./PgHome/PgHome.component";
 import { PgClientesRegComponent } from "./PgClientesReg/PgClientesReg.component";
+import { PgDetVahiculosComponent } from "./PgDetVahiculos/PgDetVahiculos.component";
 
 @NgModule({
     declarations: [
@@ -15,6 +16,7 @@ import { PgClientesRegComponent } from "./PgClientesReg/PgClientesReg.component"
         PgRegVehiculosComponent,
         PgVehiculoComponent,
         PgHomeComponent,
+        PgDetVahiculosComponent,
         PgClientesRegComponent
     ],
     exports: [
@@ -22,6 +24,7 @@ import { PgClientesRegComponent } from "./PgClientesReg/PgClientesReg.component"
         PgRegVehiculosComponent,
         PgVehiculoComponent,
         PgHomeComponent,
+        PgDetVahiculosComponent,
         PgClientesRegComponent
     ],
     imports: [

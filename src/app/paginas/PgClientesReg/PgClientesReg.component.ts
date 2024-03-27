@@ -25,9 +25,9 @@ export class PgClientesRegComponent implements OnInit {
     this.clienteForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       apellido: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      contraseña: ['',[Validators.required]],
+      password: ['',[Validators.required]],
       quiereContacto: [false],
-      correo: [''],
+      email: [''],
       telefono: ['', [Validators.maxLength(10)]]
     });
   }
@@ -42,13 +42,10 @@ export class PgClientesRegComponent implements OnInit {
     const cliente = {
       nombre: this.clienteForm.nombre,
       apellido: this.clienteForm.apellido,
-      contraseña: this.clienteForm.contraseña,
+      password: this.clienteForm.contraseña,
       email: this.clienteForm.email,
       telefono: this.clienteForm.telefono,
     };
-    this.clienteService.crearCliente(cliente).subscribe(data =>{
-      console.log(data);
-    })
   }
   ngOnInit (): void { 
   }
@@ -73,7 +70,7 @@ export class PgClientesRegComponent implements OnInit {
     if(this.clienteForm.valid){
       this.clienteService.crearCliente({...this.clienteForm.value}).subscribe(
         cliente => {
-          if (cliente.data == '1'){
+          if (cliente == '1'){
             Swal.fire({
               icon: 'success',
               title: 'Cliente creado',

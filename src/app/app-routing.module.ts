@@ -6,6 +6,7 @@ import { PgNotFoundComponent } from './paginas/PgNotFound/PgNotFound.component';
 import { PgVehiculoComponent } from './paginas/PgVehiculo/PgVehiculo.component';
 import { PgRegVehiculosComponent } from './paginas/PgRegVehiculos/PgRegVehiculos.component';
 import { PgClientesRegComponent } from './paginas/PgClientesReg/PgClientesReg.component';
+import { PgDetVahiculosComponent } from './paginas/PgDetVahiculos/PgDetVahiculos.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,11 @@ const routes: Routes = [
     component: PgRegVehiculosComponent
   },
   {
-    path: "vehiculo/:codigo",
+    path: "detalle/:codigo",
+    component: PgDetVahiculosComponent
+  },
+  {
+    path: "editar/:codigo",
     component: PgVehiculoComponent
   },
   {

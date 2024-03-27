@@ -14,16 +14,15 @@ export class PgListVehiculosComponent implements OnInit {
   
   private _filtro: string = "";
 
-  vehiculo: Vehiculo[]|any;
+  vehiculos: Vehiculo[]|any;
   public listaVehiculos:Array<Vehiculo>|any = [];
+  vehiculo: any;
 
   get filtro(){
     return this._filtro
   }
   set filtro(filtro:string){
     this._filtro = filtro;
-
-    //this.consultaVehiculos();
   }
   
   constructor(
@@ -33,27 +32,38 @@ export class PgListVehiculosComponent implements OnInit {
     
   
   ngOnInit():void {
-    //console.log('Ingreso a ejercitarse');
-    //this.consultarVehiculos();
-    this.obtenerVehiculos();
+    this.vehiculoServicio.getVehiculos().subscribe((respuesta:any)=>{
+      this.listaVehiculos = respuesta?.data;
+    });
   }
 
   mostrar(){
     this.mostrarImagenes = !this.mostrarImagenes;
   }
 
-  obtenerVehiculos():void {
-    this.vehiculoServicio.getVehiculos().subscribe( (data) =>{
-      console.log('func', data);
-      this.listaVehiculos = data;
-    });
+  getVehiculos(){
+    this.vehiculoServicio.getVehiculos().subscribe((data: any) =>{
+      this.listaVehiculos = data?.data;
+    })
   }
 
-  consultarVehiculos(){
-    this.vehiculoServicio.getVehiculos().subscribe( data => {
+  /*crearVehiculos():void {
+    const nuevoVehiculo = {
+      codigo: this.codigo,
+      marca: this.marca,
+      modelo: this.modelo,
+      anio: this.anio,
+      kilometraje: this.kilometraje,
+      precio: this.precio,
+      calificacion: this.calificacion,
+    };
+  }*/
+
+  /*consultarVehiculos(){
+    this.vehiculoServicio.getVehiculo(this.vehiculo).subscribe( data => {
       this.listaVehiculos = data;
     });
-  }
+  }*/
 
   eliminar(codigo:string){
     Swal.fire({
@@ -64,9 +74,9 @@ export class PgListVehiculosComponent implements OnInit {
       icon: "question"
     }).then((res) =>{
       if(res.isConfirmed){
-        this.vehiculoServicio.eliminarVehiculo(codigo).subscribe( data =>{
+        this.vehiculoServicio.deleteVehiculo(codigo).subscribe( data =>{
           if(data.codigo == '1'){
-            this.consultarVehiculos();
+            this.getVehiculos();
             Swal.fire({
               title: 'Mensaje',
               text: 'Vehiculo eliminado con éxito',
@@ -78,34 +88,5 @@ export class PgListVehiculosComponent implements OnInit {
     })
   }
   
-  editar(codigo: string): void {
-    this.vehiculoServicio.insertVehiculo(this.vehiculo).subscribe( data =>{
-      Swal.fire({
-        title: "¿Estás seguro que deseas editar este registro?",
-        showCancelButton: true,
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
-        icon: "question"
-      }).then((res) =>{
-        if (res.isConfirmed) {
-          this.vehiculoServicio.actualizarVehiculo(this.vehiculo, codigo).subscribe(data =>{
-            if(data.codigo == '1'){
-              Swal.fire({
-                title: 'Mensaje',
-                text: 'Vehículo actualizado con éxito',
-                icon: 'success'
-              });
-            }
-          });
-        }else{
-          Swal.fire({
-            title: 'Error',
-            text: 'Ha ocurrido un error al actualizar el vehículo. Por favor, intenta nuevamente más tarde.',
-            icon: 'error'
-          });
-        }
-      });
-    });
-  }
 }
 
